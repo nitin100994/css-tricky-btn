@@ -1,0 +1,79 @@
+body{
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+:root{
+    --squish-animation-time: 500ms;
+    --progress-animation-time: 500ms;
+}
+
+.btn{
+    position: relative;
+    background-color: #2b2d2f;
+    color: #71dfbe;
+    border: none;
+    border-radius: .125em;
+    padding: 1em 2.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn::before{
+    position: absolute;
+    display: none;
+    inset: 0;
+    content: '';
+    background-color: #2b2d2f;
+    border-radius: .125em;
+    animation: squish var(--squish-animation-time);
+    animation-fill-mode: forwards;
+}
+
+.btn.animating{
+    background-color: transparent;
+    color: transparent;
+    user-select: none;
+    cursor: default;
+}
+
+.btn::after{
+    content: "";
+    display: none;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 45%;
+    bottom: 45%;
+    background-color: #AAA;
+    border-radius: .25em;
+    animation: progress var(--progress-animation-time) var(--squish-animation-time);
+    animation-fill-mode: forwards;
+
+}
+
+.btn.animating::before,
+.btn.animating::after{
+    display: block;
+}
+
+@keyframes squish {
+    100%{
+        left: -25%;
+        right: -25%;
+        top: 45%;
+        bottom: 45%;
+        border-radius: .25em;
+    }
+}
+
+@keyframes progress {
+    100%{
+        left: -25%;
+        right: -25%;
+    }
+}
